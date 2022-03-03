@@ -1,6 +1,8 @@
 package HackerRank;
 
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 /*
 Java Hashset
@@ -61,7 +63,10 @@ public class Q026 {
             pair_right[i] = s.next();
         }
 
-        //Write your code here
+        Set pairsSet = new HashSet<String>();
+        for (int i = 0; i < t; i++) {
+            pairsSet.add("("+pair_left[i]+","+pair_right[i]+")");
+            System.out.println(pairsSet.size());
+        }
     }
-
 }
