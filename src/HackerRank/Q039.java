@@ -176,4 +176,19 @@ public class Q039 {
         }
         return global_max;
     }
+    //bruteforce
+    public static int maxSubArray6(int a[]){
+        int maxSum= Integer.MIN_VALUE;
+        int localSum=0;
+        for (int i = 0; i < a.length; i++) {
+            localSum = 0;
+            for (int j = i; j < a.length; j++) {
+                localSum+=a[j];
+                if (localSum>maxSum){
+                    maxSum = localSum;
+                }
+            }
+        }
+        return maxSum;
+    }
 }
