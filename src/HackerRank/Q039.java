@@ -109,4 +109,48 @@ public class Q039 {
 
         return maxSoFar;
     }
+    //Print continuous subarray with maximum sum
+    public static int[] maxSubArray4(int a[]){
+        // base case
+        if (a.length <= 1) {
+            return a;
+        }
+
+        // stores the maximum sum subarray found so far
+        int maxSoFar = Integer.MIN_VALUE;
+
+        // stores the maximum sum of subarray ending at the current position
+        int maxEndingHere = 0;
+
+        // stores endpoints of maximum sum subarray found so far
+        int start = 0, end = 0;
+
+        // stores starting index of a positive-sum sequence
+        int beg = 0;
+
+        // traverse the given array
+        for (int i = 0; i < a.length; i++)
+        {
+            // update the maximum sum of subarray "ending" at index `i`
+            maxEndingHere = maxEndingHere + a[i];
+
+            // if the maximum sum becomes less than the current element,
+            // start from the current element
+            if (maxEndingHere < a[i])
+            {
+                maxEndingHere = a[i];
+                beg = i;
+            }
+
+            // update result if the current subarray sum is found to be greater
+            if (maxSoFar < maxEndingHere)
+            {
+                maxSoFar = maxEndingHere;
+                start = beg;
+                end = i;
+            }
+        }
+
+        return Arrays.copyOfRange(a, start, end + 1);
+    }
 }
