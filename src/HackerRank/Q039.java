@@ -10,10 +10,21 @@ Given an integer array, find a contiguous subarray within it that has the larges
 Those who cannot remember the past are condemned to repeat it. — Dynamic Programming
 
 Ex:
-[-2, 1, -3, 4,-1, 2, 1, -5, 4]
+a = [-2, 1, -3, 4,-1, 2, 1, -5, 4]  [-2 1 -3 4 -1 2 1 -5 4]
 
 Maximum sum sub array is [4,-1,2,1]
 
+[-2, 1, -3, 4, -1,                      2, 1, -5, 4]
+                                       [2] = 2
+              [-1] =-1              [-1,2] = 1
+            [4,-1] = 3            [4,-1,2] = 5  *********************
+          [-3,4,1] = 0         [-3,4,-1,2] = 2
+       [1,-3,4,-1] = 1       [1,-3,4,-1,2] = 3
+    [-2,1,-3,4,-1] =-1    [-2,1,-3,4,-1,2] = 1
+
+  local_maximum[index=4] = 3    local_maximum[index=5] = 5
+
+    local_maximum[i] = max(a[i],a[i]+local_maximum[i-1])***
 
 * */
 public class Q039 {
@@ -25,7 +36,7 @@ public class Q039 {
             a[i] = scan.nextInt();
         }
         scan.close();
-        System.out.println(maxSubArray(a));
+        System.out.println(maxSubArray5(a));
     }
     public static int maxSubArray(int a[]){
         // stores the maximum sum subarray found so far
@@ -152,5 +163,17 @@ public class Q039 {
         }
 
         return Arrays.copyOfRange(a, start, end + 1);
+    }
+
+    public static int maxSubArray5(int a[]){
+        int local_max = 0;
+        int global_max =Integer.MIN_VALUE;
+        for (int i = 0; i < a.length; i++) {
+            local_max = Math.max(a[i],a[i]+local_max);
+            if (local_max>global_max){
+                global_max = local_max;
+            }
+        }
+        return global_max;
     }
 }
