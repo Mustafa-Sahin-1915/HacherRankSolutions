@@ -23,21 +23,10 @@ true
  */
 public class Q04 {
     public static void main(String[] args) {
+        String regexSolutionPattern = "(\\S{2}\\s){2}\\S{2}";
 
-        Regex_Test5 tester = new Regex_Test5();
-        tester.checker("(\\S{2}\\s){2}\\S{2}"); // Use \\ instead of using \
+        RegexTestClass.checker(regexSolutionPattern);
+
 
     }
-}
-class Regex_Test5 {
-
-    public void checker(String Regex_Pattern){
-
-        Scanner Input = new Scanner(System.in);
-        String Test_String = Input.nextLine();
-        Pattern p = Pattern.compile(Regex_Pattern);
-        Matcher m = p.matcher(Test_String);
-        System.out.println(m.find());
-    }
-
 }
