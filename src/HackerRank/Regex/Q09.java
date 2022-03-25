@@ -149,9 +149,9 @@ public class Q09 {
         return m.find();
     }
     public static boolean isIPV6(String str){
+        String chunkIPv6 = "([0-9a-fA-F]{1,4})";
 
-        Pattern  p = Pattern.compile("^([\\da-f]{1,4}:){7}[\\da-f]{1,4}$");
-        //Pattern p = Pattern.compile(ipv6HexCompressedRegex);
+        Pattern  p =Pattern.compile("^(" + chunkIPv6 + "\\:){7}" + chunkIPv6 + "$");
         Matcher m = p.matcher(str);
         return m.find();
     }
