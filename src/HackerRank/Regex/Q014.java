@@ -31,7 +31,7 @@ true
 */
 public class Q014 {
     public static void main(String[] args) {
-        String regexSolutionPattern = "(ok){3,}";
+        String regexSolutionPattern = ".*(ok){3}.*";
 
         RegexTestClass.checker(regexSolutionPattern);
     }
