@@ -11,8 +11,8 @@ public class RegexTestClass {
      */
     public static void checker(String Regex_Pattern){
 
-        Scanner Input = new Scanner(System.in);
-        String Test_String = Input.nextLine();
+        Scanner input = new Scanner(System.in);
+        String Test_String = input.nextLine();
         Pattern p = Pattern.compile(Regex_Pattern);
         Matcher m = p.matcher(Test_String);
         System.out.println(m.find());
