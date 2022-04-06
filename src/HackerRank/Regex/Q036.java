@@ -66,7 +66,7 @@ public class Q036 {
         for (int i=0;i<T;i++) {
             String subWord = in.nextLine();
             Matcher m = Pattern.compile(
-                    "[a-z0-9_]+"+subWord+"[a-z0-9_]+",
+                    "[\\w]+"+subWord+"[\\w]+",
                     Pattern.CASE_INSENSITIVE
             ).matcher("");
             int count = 0;
