@@ -107,19 +107,19 @@ public class Q034 {
 //<a href="http://www.quackit.com/html/tutorial/html_links.cfm"> <p> <b> Example Link </b> </ p > </a>
 // <a href="/wiki/Special:Random" title="Load a random article [x]" accesskey="x">Random article</a>
 // <a href="http://www.quackit.com/html/tutorial/html_links.cfm"> <p> <b> Example <b>Link</b> </b> </ p > </a>
-        sol3();
+//<a href="https://www.w3schools.com"><img border="0" alt="W3Schools" src="logo_w3s.gif" width="100" height="100"></a>
+        sol1();
 
     }
 
     public static void sol1() {
+
         String regexSolutionPattern = "<\\s*a\\s+href\\s*=\\s*\\\"" +
                 "(?<link>[^\\\\\"]*)" +
-                "\\\"[^>]*>(?:\\s*<\\s*[^>]*)*" +
-                "(?<=>)(?<name>.*?)(?=\\s*<)" +
-                "(?:\\s*<\\s*/[^>]*>)*<\\s*/\\s*a\\s*>";
+                "\\\"[^>]*>"+"(?<name>.*?)" +
+                "<\\s*/\\s*a\\s*>";
+
         Pattern p = Pattern.compile(regexSolutionPattern);
-
-
         Matcher m = p.matcher("");
 
         Scanner input = new Scanner(System.in);
@@ -127,101 +127,18 @@ public class Q034 {
         input.nextLine();
         String line;
         for (int i = 0; i < n; i++) {
-            line = input.nextLine();
+            line = input.nextLine().trim();
             m.reset(line);
             while (m.find()) {
                 String link = m.group("link").trim();
                 String name = m.group("name").trim();
-                name = name.replaceAll("<\\s*[a-z0-9]+\\s*>","").trim();
-                name = name.replaceAll("<\\s*/\\s*[a-z0-9]+\\s*>","").trim();
+               // System.out.println(name);
+                name = name.replaceAll("<[^<>]+>","").trim();
                 System.out.println(link + "," + name);
             }
         }
         input.close();
     }
 
-    public static void sol2() {
-        String regexSolutionPattern = "<a.*?href=([\"'])([^\1]+?)\1[^>]*>(<[^>]+>)*\\s*([^<]+)?\\s*/g";
-        Matcher m = Pattern.compile(regexSolutionPattern, Pattern.CASE_INSENSITIVE).matcher("");
-        Scanner input = new Scanner(System.in);
-        int n = input.nextInt();
-        input.nextLine();
-        String line;
-        for (int i = 0; i < n; i++) {
-            line = input.nextLine();
-            m.reset(line);
-            while (m.find()) {
-                String link = m.group(2).trim();
-                String name = m.group(4).trim();
-                System.out.println(link + "," + name);
-            }
-        }
-        input.close();
-    }
-
-    //Parse all tags by regex pattern <\s*[a-z0-9]+. Then sort them and print unique tags.
-    public static void printTags() {
-        String tagPattern = "<\\s*[a-z0-9]+";
-        Scanner stdin = new Scanner(System.in);
-        int lines = Integer.parseInt(stdin.nextLine());
-        Set<String> tags = new TreeSet<>();
-        for (int i = 0; i < lines; i++) {
-            String line = stdin.nextLine();
-            Pattern pattern = Pattern.compile(tagPattern);
-            Matcher matcher = pattern.matcher(line);
-            while (matcher.find()) {
-                tags.add(matcher.group().replaceAll("<", ""));
-            }
-        }
-        System.out.println(tags.stream().collect(Collectors.joining(";")));
-        stdin.close();
-    }
-
-    public static void sol3() {
-        //<a href="http://www.quackit.com/html/tutorial/html_links.cfm"> <p> <b> Example Link </b> </ p > </a>
-// <a href="/wiki/Special:Random" title="Load a random article [x]" accesskey="x">Random article</a>
-// <a href="http://www.quackit.com/html/tutorial/html_links.cfm"> <p> <b> Example <b>Link</b> </b> </ p > </a>
-
-        Pattern p = Pattern.compile("<a\\s*href=\"([^\"]+)\"([^<>]*)>(.*)<\\s*/\\s*a\\s*>");
-        String regexSolInner = "<([A-Z][A-Z0-9]*)\\b[^>]*>(?<nam>.*?)</\\1>";
-
-        Matcher m = p.matcher("");
-        Matcher m2 = Pattern.compile(regexSolInner, Pattern.CASE_INSENSITIVE).matcher("");
-
-        Scanner input = new Scanner(System.in);
-        int n = input.nextInt();
-        input.nextLine();
-        String line;
-        for (int i = 0; i < n; i++) {
-            line = input.nextLine();
-            m.reset(line);
-            while (m.find()) {
-                String link = m.group(1).trim();
-                String name = m.group(3).trim();
-                name = name.replaceAll("<\\s*[a-z0-9]+\\s*>","").trim();
-                name = name.replaceAll("<\\s*/\\s*[a-z0-9]+\\s*>","").trim();
-                System.out.println(link + "," + name);
-            }
-        }
-        input.close();
-    }
-    public static void sol4(){
-        Pattern p = Pattern.compile("<a[^<>]*href=\"(.*?)\"[^<>]*>((<[^<>]+>)*?([^<>]*)(</[^<>]+>)*?)</a>");
-        Matcher m = p.matcher("");
-        Scanner input = new Scanner(System.in);
-        int n = input.nextInt();
-        input.nextLine();
-        String line;
-        for (int i = 0; i < n; i++) {
-            line = input.nextLine();
-            m.reset(line);
-            while (m.find()) {
-                String link = m.group(1).trim();
-                String name = m.group(4).trim();
-                System.out.println(link + "," + name);
-            }
-        }
-        input.close();
-    }
 }
 
