@@ -124,14 +124,24 @@ Neither
  */
 public class Q09 {
     public static void main(String[] args) {
+
+        String ipV4Regex = "(?:2(?:5[0-5]?|[0-4][0-9]?|[0-9])?|[0-1][0-9]{0,2}|[3-9][0-9]?)(?:\\.(?:2(?:5[0-5]?|[0-4][0-9]?|[0-9])?|[0-1][0-9]{0,2}|[3-9][0-9]?)){3}";
+        Matcher mipV4 = Pattern.compile(ipV4Regex).matcher("");
+        String ipV6Regex = "[0-9a-fA-F]{1,4}(?::[0-9a-fA-F]{1,4}){7}";
+        Matcher mipV6 = Pattern.compile(ipV6Regex).matcher("");
+
+
         Scanner scanner = new Scanner(System.in);
         int n =scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
         String ipstr = null;
         for (int i = 0; i < n; i++) {
-            ipstr = scanner.next();
-            if (isIPV4(ipstr)){
+            ipstr = scanner.nextLine().trim();
+            mipV4.reset(ipstr);
+            mipV6.reset(ipstr);
+            if (mipV4.matches()){
                 System.out.println("IPv4");
-            }else if(isIPV6(ipstr)){
+            }else if(mipV6.matches()){
                 System.out.println("IPv6");
             }else{
                 System.out.println("Neither");
@@ -139,20 +149,5 @@ public class Q09 {
         }
         scanner.close();
     }
-    public static boolean isIPV4(String str){
-        String zeroTo255
-                = "(\\d{1,2}|(0|1)\\"
-                + "d{2}|2[0-4]\\d|25[0-5])";
-        String ipv4Regex = zeroTo255 + "\\." + zeroTo255 + "\\."+ zeroTo255 + "\\."+ zeroTo255;
-        Pattern p = Pattern.compile(ipv4Regex);
-        Matcher m = p.matcher(str);
-        return m.find();
-    }
-    public static boolean isIPV6(String str){
-        String chunkIPv6 = "([0-9a-fA-F]{1,4})";
 
-        Pattern  p =Pattern.compile("^(" + chunkIPv6 + "\\:){7}" + chunkIPv6 + "$");
-        Matcher m = p.matcher(str);
-        return m.find();
-    }
 }
