@@ -44,7 +44,6 @@ Sample Output
  */
 public class Q037 {
     public static void main(String[] args) {
-
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
         in.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
