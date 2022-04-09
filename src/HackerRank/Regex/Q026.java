@@ -70,6 +70,23 @@ i:
 li:style
 Pattern EMAIL_ADDRESS_PATTERN =
   Pattern.compile("([a-z0-9_.-]+)@([a-z0-9_.-]+[a-z])");
+ \G                     # start where the last match left off
+   (?>                    # begin non-backtracking expression
+       .*?                # *anything* until...
+       <[Aa]\b            # an anchor tag
+    )??                   # but look ahead to see that the rest of the expression
+                          #    does not match.
+    \s+                   # at least one space
+    ( \p{Alpha}           # Our first capture, starting with one alpha
+      \p{Alnum}*          # followed by any number of alphanumeric characters
+    )                     # end capture #1
+    (?: \s* = \s*         # a group starting with a '=', possibly surrounded by spaces.
+        (?: (['"])        # capture a single quote character
+            (.*?)         # anything else
+             \2           # which ever quote character we captured before
+        |   ( [^>\s'"]+ ) # any number of non-( '>', space, quote ) chars
+        )                 # end group
+     )?                   # attribute value was optional
 
 */
 public class Q026 {
